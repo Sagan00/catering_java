@@ -64,4 +64,46 @@ public class AuthController {
     public String login(){
         return "login";
     }
+    @GetMapping("/menu")
+    public String menu(){
+        return "menu";
+    }
+    @GetMapping("/main")
+    public String main(){
+        return "main";
+    }
+    @GetMapping("/order")
+    public String order(){
+        return "order";
+    }
+    @GetMapping("/contact")
+    public String contact(){
+        return "contact";
+    }
+    @GetMapping("/calcbmi")
+    public String calcbmi(){
+        return "calcbmi";
+    }
+    @PostMapping("/calculateBMR")
+    public String calculateBMR(Model model, int age, String gender, double weight, double height) {
+        // Tutaj przeprowadź obliczenia BMR na podstawie przekazanych danych
+        // Następnie zaktualizuj model z wynikiem
+        double bmr = calculateBMRValue(age, gender, weight, height);
+        model.addAttribute("bmr", bmr);
+        return "bmr_res";
+    }
+
+    private double calculateBMRValue(int age, String gender, double weight, double height) {
+        // Tutaj przeprowadź obliczenia BMR
+        // Wzory do obliczeń różnią się w zależności od płci
+        double bmr = 0.0;
+        if (gender.equals("male")) {
+            // Obliczenia BMR dla mężczyzny
+            bmr = 1;
+        } else {
+            // Obliczenia BMR dla kobiety
+            bmr = 0.5;
+        }
+        return bmr;
+    }
 }

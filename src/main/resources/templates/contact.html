@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Ctering</title>
@@ -20,7 +18,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/menu}">Menu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/order}">Zamówienie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/contact}">Kontakt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/calcbmi}">Kalkulator BMR</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
                 </li>
             </ul>
         </div>
@@ -28,24 +38,15 @@
 </nav>
 <div class="container">
     <div class="row col-md-10">
-        <h2>List of Registered Users</h2>
+        <h2>Kontakt do nas</h2>
+        <p>(telefon itp).</p>
     </div>
-    <table class="table table-bordered table-hover">
-        <thead class="table-dark">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each = "user : ${users}">
-            <td th:text = "${user.firstName}"></td>
-            <td th:text = "${user.lastName}"></td>
-            <td th:text = "${user.email}"></td>
-        </tr>
-        </tbody>
-    </table>
 </div>
+<footer class="footer mt-5">
+    <div class="container">
+        <hr>
+        <p>&copy; 2023 Strona Główna Serwisu Cateringowego. Wszelkie prawa zastrzeżone.</p>
+    </div>
+</footer>
 </body>
 </html>
