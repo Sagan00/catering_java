@@ -3,6 +3,7 @@ import jakarta.validation.Valid;
 import com.example.catering.dto.UserDto;
 import com.example.catering.entity.User;
 import com.example.catering.service.UserService;
+import com.example.catering.entity.Bmr;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,9 +35,7 @@ public class AuthController {
     }
     // handler method to handle user registration form submit request
     @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") UserDto userDto,
-                               BindingResult result,
-                               Model model){
+    public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model){
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
@@ -52,14 +51,13 @@ public class AuthController {
         userService.saveUser(userDto);
         return "redirect:/register?success";
     }
-    // handler method to handle list of users
     @GetMapping("/users")
     public String users(Model model){
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "users";
     }
-    // handler method to handle login request
+
     @GetMapping("/login")
     public String login(){
         return "login";
@@ -86,24 +84,10 @@ public class AuthController {
     }
     @PostMapping("/calculateBMR")
     public String calculateBMR(Model model, int age, String gender, double weight, double height) {
-        // Tutaj przeprowadź obliczenia BMR na podstawie przekazanych danych
-        // Następnie zaktualizuj model z wynikiem
-        double bmr = calculateBMRValue(age, gender, weight, height);
+        double bmr = Bmr.calculateBMRValue(age, gender, weight, height);
         model.addAttribute("bmr", bmr);
         return "bmr_res";
     }
 
-    private double calculateBMRValue(int age, String gender, double weight, double height) {
-        // Tutaj przeprowadź obliczenia BMR
-        // Wzory do obliczeń różnią się w zależności od płci
-        double bmr = 0.0;
-        if (gender.equals("male")) {
-            // Obliczenia BMR dla mężczyzny
-            bmr = 1;
-        } else {
-            // Obliczenia BMR dla kobiety
-            bmr = 0.5;
-        }
-        return bmr;
-    }
+
 }
