@@ -70,6 +70,12 @@ public class AuthController {
     public String main(){
         return "main";
     }
+    @GetMapping("/account")
+    public String account(Model model) {
+        List<UserDto> users = userService.findAllUsers();
+        model.addAttribute("users", users);
+        return "account";
+    }
     @GetMapping("/order")
     public String order(){
         return "order";
