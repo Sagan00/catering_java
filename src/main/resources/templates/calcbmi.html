@@ -30,6 +30,9 @@
                     <a class="nav-link" th:href="@{/calcbmi}">Kalkulator BMR</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" th:href="@{/account}">Konto</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
                 </li>
             </ul>
@@ -61,8 +64,30 @@
                         <label for="height" class="form-label">Wzrost (cm):</label>
                         <input type="number" class="form-control" id="height" name="height" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="physicalActivity" class="form-label">Aktywność fizyczna:</label>
+                        <select class="form-select" id="physicalActivity" name="physicalActivity" required>
+                            <option value="L1">Brak aktywności</option>
+                            <option value="L2">Niska aktywność</option>
+                            <option value="L3">Średnia aktywność</option>
+                            <option value="L4">Wysoka aktywność</option>
+                            <option value="L5">Bardzo wysoka aktywność</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="goal" class="form-label">Cel:</label>
+                        <select class="form-select" id="goal" name="goal" required>
+                            <option value="goal1">Chcę przytyć</option>
+                            <option value="goal2">Chcę utrzymać wagę</option>
+                            <option value="goal3">Chcę schudnąć</option>
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">Oblicz BMR</button>
                 </form>
+                <th:block th:if="${bmr ne null}"> <!-- niewidoczne do czasu popraawnego przesłania formularza-->
+                    <h2>Wynik Obliczeń BMR</h2>
+                    <p>Twoje BMR wynosi: <span th:text="${bmr}"></span> kcal dziennie.</p>
+                </th:block>
             </div>
         </div>
     </div>

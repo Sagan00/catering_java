@@ -83,10 +83,10 @@ public class AuthController {
         return "calcbmi";
     }
     @PostMapping("/calculateBMR")
-    public String calculateBMR(Model model, int age, String gender, double weight, double height) {
-        double bmr = Bmr.calculateBMRValue(age, gender, weight, height);
+    public String calculateBMR(Model model, int age, String gender, double weight, double height, String physicalActivity, String goal ) {
+        double bmr = Bmr.calculateBMRValue(age, gender, weight, height, physicalActivity, goal);
         model.addAttribute("bmr", bmr);
-        return "bmr_res";
+        return "calcbmi";
     }
 
 
