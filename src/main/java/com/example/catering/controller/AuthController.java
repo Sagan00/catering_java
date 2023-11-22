@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -75,6 +76,11 @@ public class AuthController {
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
         return "account";
+    }
+    @PostMapping("/account/delete/{email}")
+    public String deleteUser(@PathVariable String email) {
+        userService.deleteUserByEmail(email);
+        return "redirect:/account";
     }
     @GetMapping("/order")
     public String order(){

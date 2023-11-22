@@ -31,7 +31,8 @@ public class SpringSecurity {
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
-                                .requestMatchers("/account").hasRole("ADMIN")
+                                .requestMatchers("/account").hasRole("ADMIN") //do wyswietlania kont uzytkownikow
+                                .requestMatchers("/account/delete/**").hasRole("ADMIN") //do usuwania konta użytkownika
                                 .requestMatchers("/main").hasRole("ADMIN")
                                 .requestMatchers("/menu").hasRole("ADMIN")
                                 .requestMatchers("/order").hasRole("ADMIN")
