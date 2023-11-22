@@ -30,16 +30,15 @@ public class SpringSecurity {
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/").permitAll()
-                                .requestMatchers("/users").hasRole("ADMIN")
                                 .requestMatchers("/usersList").hasRole("ADMIN") //do wyswietlania kont uzytkownikow
                                 .requestMatchers("/usersList/delete/**").hasRole("ADMIN") //do usuwania konta użytkownika
-                                .requestMatchers("/main").hasRole("ADMIN")
-                                .requestMatchers("/menu").hasRole("ADMIN")
-                                .requestMatchers("/order").hasRole("ADMIN")
-                                .requestMatchers("/contact").hasRole("ADMIN")
-                                .requestMatchers("/calcbmi").hasRole("ADMIN")
-                                .requestMatchers("/calculateBMR").hasRole("ADMIN")
-                                .requestMatchers("/bmr").hasRole("ADMIN")
+                                .requestMatchers("/main").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/menu").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/order").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/contact").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/calcbmi").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/calculateBMR").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/bmr").hasAnyRole("ADMIN", "USER")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
