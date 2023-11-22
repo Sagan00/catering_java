@@ -71,16 +71,16 @@ public class AuthController {
     public String main(){
         return "main";
     }
-    @GetMapping("/account")
-    public String account(Model model) {
+    @GetMapping("/usersList")
+    public String usersList(Model model) {
         List<UserDto> users = userService.findAllUsers();
         model.addAttribute("users", users);
-        return "account";
+        return "usersList";
     }
-    @PostMapping("/account/delete/{email}")
+    @PostMapping("/usersList/delete/{email}")
     public String deleteUser(@PathVariable String email) {
         userService.deleteUserByEmail(email);
-        return "redirect:/account";
+        return "redirect:/usersList";
     }
     @GetMapping("/order")
     public String order(){

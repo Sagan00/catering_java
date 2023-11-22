@@ -30,7 +30,7 @@
                     <a class="nav-link" th:href="@{/calcbmi}">Kalkulator BMR</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/account}">Konto</a>
+                    <a class="nav-link" th:href="@{/usersList}">Użytkownicy</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
@@ -47,7 +47,7 @@
                 <form action="/calculateBMR" method="post">
                     <div class="mb-3">
                         <label for="age" class="form-label">Wiek:</label>
-                        <input type="number" class="form-control" id="age" name="age" required>
+                        <input type="number" class="form-control" id="age" name="age" min="0" required>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Płeć:</label>
@@ -58,11 +58,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="weight" class="form-label">Waga (kg):</label>
-                        <input type="number" class="form-control" id="weight" name="weight" required>
+                        <input type="number" class="form-control" id="weight" name="weight" min="0" required>
                     </div>
                     <div class="mb-3">
                         <label for="height" class="form-label">Wzrost (cm):</label>
-                        <input type="number" class="form-control" id="height" name="height" required>
+                        <input type="number" class="form-control" id="height" name="height" min="0" required>
                     </div>
                     <div class="mb-3">
                         <label for="physicalActivity" class="form-label">Aktywność fizyczna:</label>
