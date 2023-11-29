@@ -13,22 +13,22 @@ public class Bmr {
         } else {
             bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
         }
-        if (physicalActivity.equals("L1")) {
+        if (physicalActivity.equals("lackOfActivity")) {
             bmr = bmr * 1.2;
-        } else if (physicalActivity.equals("L2")) {
+        } else if (physicalActivity.equals("lowActivity")) {
             bmr = bmr * 1.4;
-        } else if (physicalActivity.equals("L3")) {
+        } else if (physicalActivity.equals("averageActivity")) {
             bmr = bmr * 1.6;
-        } else if (physicalActivity.equals("L4")) {
+        } else if (physicalActivity.equals("highActivity")) {
             bmr = bmr * 1.8;
-        } else if (physicalActivity.equals("L5")) {
+        } else if (physicalActivity.equals("supremeActivity")) {
             bmr = bmr * 2.0;
         }
-        if (goal.equals("goal1")) {
+        if (goal.equals("gainWeight")) {
             bmr = bmr * 1.2;
-        } else if (goal.equals("goal2")) {
+        } else if (goal.equals("maintenanceWeight")) {
             bmr = bmr * 1.0;
-        } else if (goal.equals("goal3")) {
+        } else if (goal.equals("loseWeight")) {
             bmr = bmr * 0.9;
         }
 
