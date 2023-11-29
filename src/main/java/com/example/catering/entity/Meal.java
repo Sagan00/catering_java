@@ -1,23 +1,35 @@
-package com.example.catering.dto;
+package com.example.catering.entity;
+
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MealDto {
+@Entity
+@Table(name="meals")
+public class    Meal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty
+    @Column(nullable=false, unique=true)
     private String name;
-    @NotEmpty
+    @Column(nullable=false)
     private String picture;
-    @NotEmpty
+    @Column(nullable=false)
     private String description;
-    @NotEmpty
+    @Column(nullable=false)
     private String category;
+    @Column
     private double price;
+    @Column
     private Long calories;
 }

@@ -1,6 +1,7 @@
 package com.example.catering.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,27 +25,36 @@ public class SpringSecurity {
     }
 
     @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/").permitAll()
+                                .requestMatchers("/error").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
-                                .requestMatchers("/main").hasRole("ADMIN")
-                                .requestMatchers("/menu").hasRole("ADMIN")
-                                .requestMatchers("/order").hasRole("ADMIN")
-                                .requestMatchers("/contact").hasRole("ADMIN")
-                                .requestMatchers("/calcbmi").hasRole("ADMIN")
-                                .requestMatchers("/calculateBMR").hasRole("ADMIN")
-                                .requestMatchers("/bmr").hasRole("ADMIN")
-                ).formLogin(
+                                .requestMatchers("/main").hasRole("USER")
+                                //.requestMatchers("/menu").hasRole("ADMIN")
+                                .requestMatchers("/menu/**").hasRole("USER")
+                                .requestMatchers("/cart/**").hasRole("USER")
+                                .requestMatchers("/contact").hasRole("USER")
+                                .requestMatchers("/calcbmi").hasRole("USER")
+                                .requestMatchers("/calculateBMR").hasRole("USER")
+                                .requestMatchers("/bmr").hasRole("USER")
+                )
+                .formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/main")
                                 .permitAll()
-                ).logout(
+                )
+                .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()

@@ -2,9 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Ctering</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
+  <title>Meals</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
         crossorigin="anonymous">
 </head>
@@ -36,17 +35,44 @@
     </div>
   </div>
 </nav>
-<div class="container">
-  <div class="row col-md-10">
-    <h2>Wynik Obliczeń BMR</h2>
-    <p>Twoje BMR wynosi: <span th:text="${bmr}"></span> kcal dziennie.</p>
-  </div>
+<div class="container mt-5">
+  <h2>All Meals</h2>
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Category</th>
+      <th>Price</th>
+      <th>Calories</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="meal : ${meals}">
+      <td th:text="${meal.id}"></td>
+      <td th:text="${meal.name}"></td>
+      <td th:text="${meal.description}"></td>
+      <td th:text="${meal.category}"></td>
+      <td th:text="${meal.price}"></td>
+      <td th:text="${meal.calories}"></td>
+      <td>
+        <a th:href="@{'/cart/add/fromcart/' + ${meal.id}}" class="btn btn-primary btn-sm">Add to Cart</a>
+        <a th:href="@{'/menu/edit/' + ${meal.id}}" class="btn btn-primary btn-sm">Edit</a>
+        <a th:href="@{'/menu/delete/' + ${meal.id}}" class="btn btn-danger btn-sm">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/menu/add}" class="btn btn-success">Add Meal</a>
 </div>
 <footer class="footer mt-5">
   <div class="container">
     <hr>
-    <p>&copy; 2023 Strona Główna Serwisu Cateringowego. Wszelkie prawa zastrzeżone.</p>
+    <p>&copy; 2023 Ctering. Wszelkie prawa zastrzeżone.</p>
   </div>
 </footer>
 </body>
 </html>
+l>
