@@ -30,6 +30,9 @@
           <a class="nav-link" th:href="@{/calcbmi}">Kalkulator BMR</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" th:href="@{/usersList}">Użytkownicy</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
         </li>
       </ul>
@@ -50,6 +53,7 @@
   <div class="container">
     <hr>
     <p>&copy; 2023 Ctering. Wszelkie prawa zastrzeżone.</p>
+    <p th:text="${role}"></p>
   </div>
 </footer>
 </body>

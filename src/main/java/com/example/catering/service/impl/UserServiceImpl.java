@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /*
     @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
@@ -41,18 +42,44 @@ public class UserServiceImpl implements UserService {
         }
         user.setRoles(Arrays.asList(role));
         userRepository.save(user);
+    }*/
+
+    public void saveUser(UserDto userDto) {
+        User user = new User();
+        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        // encrypt the password using spring security
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        Role role = roleRepository.findByName("ROLE_USER");
+        if(role == null){
+            role = checkRoleExist("ROLE_USER");
+        }
+        user.setRoles(Arrays.asList(role));
+        userRepository.save(user);
     }
 
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
-
+    @Override
+    public void deleteUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            // Usunięcie przypisanych ról
+            user.setRoles(null);
+            // Zapisanie zmian w użytkowniku
+            userRepository.save(user);
+            // Usunięcie użytkownika
+            userRepository.delete(user);
+        }
+    }
     @Override
     public List<UserDto> findAllUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAllByRoles_Name("ROLE_USER");
         return users.stream()
-                .map((user) -> mapToUserDto(user))
+                .map(this::mapToUserDto)
                 .collect(Collectors.toList());
     }
 
@@ -64,10 +91,18 @@ public class UserServiceImpl implements UserService {
         userDto.setEmail(user.getEmail());
         return userDto;
     }
-
+/*
     private Role checkRoleExist(){
         Role role = new Role();
         role.setName("ROLE_ADMIN");
+        return roleRepository.save(role);
+    }
+
+ */
+
+    private Role checkRoleExist(String roleName){
+        Role role = new Role();
+        role.setName(roleName);
         return roleRepository.save(role);
     }
 }

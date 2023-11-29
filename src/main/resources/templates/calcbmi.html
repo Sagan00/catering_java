@@ -30,6 +30,9 @@
                     <a class="nav-link active" aria-current="page" th:href="@{/calcbmi}">Kalkulator BMR</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" th:href="@{/usersList}">Użytkownicy</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
                 </li>
             </ul>
@@ -44,7 +47,7 @@
                 <form action="/calculateBMR" method="post">
                     <div class="mb-3">
                         <label for="age" class="form-label">Wiek:</label>
-                        <input type="number" class="form-control" id="age" name="age" required>
+                        <input type="number" class="form-control" id="age" name="age" min="0" required>
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label">Płeć:</label>
@@ -55,14 +58,36 @@
                     </div>
                     <div class="mb-3">
                         <label for="weight" class="form-label">Waga (kg):</label>
-                        <input type="number" class="form-control" id="weight" name="weight" required>
+                        <input type="number" class="form-control" id="weight" name="weight" min="0" required>
                     </div>
                     <div class="mb-3">
                         <label for="height" class="form-label">Wzrost (cm):</label>
-                        <input type="number" class="form-control" id="height" name="height" required>
+                        <input type="number" class="form-control" id="height" name="height" min="0" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="physicalActivity" class="form-label">Aktywność fizyczna:</label>
+                        <select class="form-select" id="physicalActivity" name="physicalActivity" required>
+                            <option value="lackOfActivity">Brak aktywności</option>
+                            <option value="lowActivity">Niska aktywność</option>
+                            <option value="averageActivity">Średnia aktywność</option>
+                            <option value="highActivity">Wysoka aktywność</option>
+                            <option value="supremeActivity">Bardzo wysoka aktywność</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="goal" class="form-label">Cel:</label>
+                        <select class="form-select" id="goal" name="goal" required>
+                            <option value="gainWeight">Chcę przytyć</option>
+                            <option value="maintenanceWeight">Chcę utrzymać wagę</option>
+                            <option value="loseWeight">Chcę schudnąć</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Oblicz BMR</button>
                 </form>
+                <th:block th:if="${bmr ne null}"> <!-- niewidoczne do czasu poprawnego przesłania formularza-->
+                    <h2>Wynik Obliczeń BMR</h2>
+                    <p>Twoje BMR wynosi: <span th:text="${bmr}"></span> kcal dziennie.</p>
+                </th:block>
             </div>
         </div>
     </div>

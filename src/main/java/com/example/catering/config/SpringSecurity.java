@@ -36,18 +36,17 @@ public class SpringSecurity {
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/").permitAll()
+                                .requestMatchers("/usersList").hasRole("ADMIN") //do wyswietlania kont uzytkownikow
+                                .requestMatchers("/usersList/delete/**").hasRole("ADMIN") //do usuwania konta użytkownika
                                 .requestMatchers("/error").permitAll()
-                                .requestMatchers("/users").hasRole("ADMIN")
-                                .requestMatchers("/main").hasRole("USER")
-                                //.requestMatchers("/menu").hasRole("ADMIN")
-                                .requestMatchers("/menu/**").hasRole("USER")
-                                .requestMatchers("/cart/**").hasRole("USER")
-                                .requestMatchers("/contact").hasRole("USER")
-                                .requestMatchers("/calcbmi").hasRole("USER")
-                                .requestMatchers("/calculateBMR").hasRole("USER")
-                                .requestMatchers("/bmr").hasRole("USER")
-                )
-                .formLogin(
+                                .requestMatchers("/main").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/menu/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/cart/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/contact").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/calcbmi").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/calculateBMR").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/bmr").hasAnyRole("ADMIN", "USER")
+                ).formLogin(
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
