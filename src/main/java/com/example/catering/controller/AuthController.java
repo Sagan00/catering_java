@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -52,25 +53,16 @@ public class AuthController {
         userService.saveUser(userDto);
         return "redirect:/register?success";
     }
-    @GetMapping("/users")
-    public String users(Model model){
-        List<UserDto> users = userService.findAllUsers();
-        model.addAttribute("users", users);
-        return "users";
-    }
 
     @GetMapping("/login")
     public String login(){
         return "login";
     }
     @GetMapping("/menu")
-    public String menu(){
-        return "menu";
-    }
+    public String menu(){ return "menu"; }
     @GetMapping("/main")
-    public String main(){
-        return "main";
-    }
+    public String main(){ return "main"; }
+
     @GetMapping("/usersList")
     public String usersList(Model model) {
         List<UserDto> users = userService.findAllUsers();
@@ -82,6 +74,7 @@ public class AuthController {
         userService.deleteUserByEmail(email);
         return "redirect:/usersList";
     }
+
     @GetMapping("/order")
     public String order(){
         return "order";
@@ -100,6 +93,4 @@ public class AuthController {
         model.addAttribute("bmr", bmr);
         return "calcbmi";
     }
-
-
 }
