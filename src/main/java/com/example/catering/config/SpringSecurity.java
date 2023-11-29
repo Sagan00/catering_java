@@ -1,6 +1,7 @@
 package com.example.catering.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +25,11 @@ public class SpringSecurity {
     }
 
     @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
@@ -32,9 +38,10 @@ public class SpringSecurity {
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/usersList").hasRole("ADMIN") //do wyswietlania kont uzytkownikow
                                 .requestMatchers("/usersList/delete/**").hasRole("ADMIN") //do usuwania konta użytkownika
+                                .requestMatchers("/error").permitAll()
                                 .requestMatchers("/main").hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("/menu").hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("/order").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/menu/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/cart/**").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("/contact").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("/calcbmi").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("/calculateBMR").hasAnyRole("ADMIN", "USER")
@@ -45,7 +52,8 @@ public class SpringSecurity {
                                 .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/main")
                                 .permitAll()
-                ).logout(
+                )
+                .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                                 .permitAll()
