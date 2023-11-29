@@ -30,9 +30,6 @@
           <a class="nav-link" th:href="@{/calcbmi}">Kalkulator BMR</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:href="@{/usersList}">Użytkownicy</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" th:href="@{/logout}">Wyloguj</a>
         </li>
       </ul>
@@ -42,18 +39,13 @@
 <div class="container">
   <div class="row col-md-10">
     <h2>Ctering</h2>
-    <p>Tutaj zamówisz pyszne dania i potrawy.</p>
-  </div>
-  <div class="row col-md-10">
-    <h2>Aktualne Promocje</h2>
-    <p>Sprawdź nasze aktualne promocje i rabaty na zamówienia grupowe.</p>
+    <p>Wystąpił błąd.</p>
   </div>
 </div>
 <footer class="footer mt-5">
   <div class="container">
     <hr>
     <p>&copy; 2023 Ctering. Wszelkie prawa zastrzeżone.</p>
-    <p th:text="${role}"></p>
   </div>
 </footer>
 </body>

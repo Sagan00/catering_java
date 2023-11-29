@@ -60,6 +60,7 @@ public class AuthController {
     }
     @GetMapping("/menu")
     public String menu(){ return "menu"; }
+
     @GetMapping("/main")
     public String main(){ return "main"; }
 
