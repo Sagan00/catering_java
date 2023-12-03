@@ -21,7 +21,7 @@ public class SecurityIntegrationTest {
 
     @Test
     public void whenAccessingOpenEndpoint_thenNoAuthenticationIsRequired() throws Exception {
-        mockMvc.perform(get("/index"))  // Assuming '/index' is an open endpoint in your application
+        mockMvc.perform(get("/index"))
                 .andExpect(status().isOk());
     }
 
