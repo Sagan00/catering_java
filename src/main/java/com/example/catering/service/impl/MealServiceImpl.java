@@ -45,14 +45,12 @@ public class MealServiceImpl implements MealService {
     public void updateMeal(MealDto mealDto) {
         Optional<Meal> optionalMeal = mealRepository.findById(mealDto.getId());
         optionalMeal.ifPresent(existingMeal -> {
-            // Update fields based on mealDto
             existingMeal.setName(mealDto.getName());
             existingMeal.setPicture(mealDto.getPicture());
             existingMeal.setDescription(mealDto.getDescription());
             existingMeal.setCategory(mealDto.getCategory());
             existingMeal.setPrice(mealDto.getPrice());
             existingMeal.setCalories(mealDto.getCalories());
-
             mealRepository.save(existingMeal);
         });
     }

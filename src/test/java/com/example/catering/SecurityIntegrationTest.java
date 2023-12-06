@@ -41,7 +41,7 @@ public class SecurityIntegrationTest {
                 .andReturn();
 
         mockMvc.perform(get("/login")
-                        .header("Authorization", "Basic " + Base64.getEncoder().encodeToString("test@test.com:test".getBytes())))
+                        .header("Authorization", "Basic " + Base64.getEncoder().encodeToString("test@gmail.com:test".getBytes())))
                 .andExpect(status().isOk());
     }
 
