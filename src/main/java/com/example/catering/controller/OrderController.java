@@ -4,6 +4,7 @@ import com.example.catering.dto.UserDto;
 import com.example.catering.entity.User;
 import com.example.catering.service.MealService;
 import com.example.catering.entity.Meal;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import com.example.catering.dto.OrderDto;
@@ -30,10 +31,17 @@ public class OrderController {
     }
 
     @GetMapping
-    public String showCart(Model model) {
-        List<Order> orders = orderService.getAllOrders();
-        model.addAttribute("orders", orders);
-        return "cart";
+    public String showCart(Model model, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            User user = userService.findUserByEmail(username);
+            Long userId = user.getId();
+            List<Order> orders = orderService.getOrdersByUserId(userId);
+            model.addAttribute("orders", orders);
+            return "cart";
+        } else {
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/add")
@@ -56,10 +64,10 @@ public class OrderController {
 
     @GetMapping("/add/fromcart/{mealId}")
     public String addToCart(@PathVariable Long mealId) {
-        // Pobierz posiłek na podstawie mealId
         Meal meal = mealService.getMealById(mealId);
         if (meal != null) {
-            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            String username = SecurityContextHolder.getContext()
+                    .getAuthentication().getName();
 
             User user = userService.findUserByEmail(username);
             Long userId = user.getId();
