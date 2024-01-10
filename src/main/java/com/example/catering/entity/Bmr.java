@@ -3,8 +3,8 @@ package com.example.catering.entity;
 public class Bmr {
     public static double calculateBMRValue(int age, String gender, double weight, double height, String physicalActivity, String goal) {
         // Validate input values
-        if (age <= 0 || weight <= 0 || height <= 0) {
-            throw new IllegalArgumentException("Wiek, waga i wzrost muszą mieć wartości większe od 0.");
+        if (age < 1 || weight < 1 || height < 1) {
+            throw new IllegalArgumentException("Wiek, waga i wzrost muszą mieć wartości większe od 1.");
         }
 
         double bmr = 0.0;

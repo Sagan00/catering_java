@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.security.core.Authentication;
 
 import java.security.Principal;
 import java.util.List;
@@ -60,8 +61,19 @@ public class AuthController {
     }
 
     @GetMapping("/main")
-    public String main(){ return "main"; }
+    public String main(Principal principal){
+        Authentication authentication = (Authentication) principal;
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
 
+        if (isAdmin) {
+            // Ta część jest wykonywana tylko dla administratorów
+            return "main-admin";
+        } else {
+            // Inna logika dla użytkowników bez roli administratora
+            return "main"; // lub inna strona dla użytkowników bez dostępu
+        }
+    }
     @GetMapping("/usersList")
     public String usersList(Model model) {
         List<UserDto> users = userService.findAllUsers();
